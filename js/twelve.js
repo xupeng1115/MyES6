@@ -48,6 +48,61 @@ console.log(it.next().value);
 //凡是部署了Symbol.iterator属性的数据结构，就称为部署了遍历器接口，调用了这个接口，就会返回一个遍历器对象。
 console.log(it.next().value);
 
+var iterable={
+    0:'a',
+    1:'b',
+    2:'c',
+    length:3,
+    [Symbol.iterator]:Array.prototype[Symbol.iterator]
+};
+
+for(var item of iterable){
+    console.log(item);
+}
+
+var generator=function*(){
+    yield 1;
+    yield* [2,3,4];
+    yield 5;
+};
+
+var iterator=generator();
+
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+
+//字符串的iterator接口
+var someString='hi';
+console.log(typeof someString[Symbol.iterator]);
+
+var iterator=someString[Symbol.iterator]();
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+
+var arr=['red','green','blue'];
+for(var v of arr){
+    console.log(v);
+}
+
+var engines=new Set(["Gecko","Trident","Webkit","Webkit"]);
+for(var e of engines){
+    console.log(e);
+}
+
+var es6=new Map();
+es6.set("edition",6);
+es6.set("committee","TC39");
+es6.set("standard","ECMA-262");
+
+for(var [name,value] of es6){
+    console.log(name+":"+value);
+}
+
+
 
 
 
